@@ -1,0 +1,218 @@
+<!DOCTYPE html> <html>
+  <head>
+    <title>GraphQL</title>
+    <meta charset="utf-8">
+    <link rel= "stylesheet" href= "css/stylesheet.css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: middle, title-slide
+
+# The NRCAN API
+## GraphQL@CDS
+
+---
+class: center, middle
+
+.fifty[![schema](images/mandatory_apis.png)]
+
+---
+
+class: middle, center
+
+# How APIs work now
+Spoiler: it's worse than you think
+
+---
+class: code, smaller-text
+
+```sh
+curl -s "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22"
+{"coord":{"lon":-0.13,"lat":51.51},"weather":[{"id":300,"main":"Drizzle","description":"light intensity drizzle","icon":"09d"}],"base":"stations","main":{"temp":280.32,"pressure":1012,"humidity":81,"temp_min":279.15,"temp_max":281.15},"visibility":10000,"wind":{"speed":4.1,"deg":80},"clouds":{"all":90},"dt":1485789600,"sys":{"type":1,"id":5091,"message":0.0103,"country":"GB","sunrise":1485762037,"sunset":1485794875},"id":2643743,"name":"London","cod":200}
+```
+---
+
+class: code, smaller-text
+
+```sh
+curl -s "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22" | jq '.'
+{
+  "coord": {
+    "lon": -0.13,
+    "lat": 51.51
+  },
+  "weather": [
+    {
+      "id": 300,
+      "main": "Drizzle",
+      "description": "light intensity drizzle",
+      "icon": "09d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 280.32,
+    "pressure": 1012,
+    "humidity": 81,
+    "temp_min": 279.15,
+    "temp_max": 281.15
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 4.1,
+    "deg": 80
+  },
+  "clouds": {
+    "all": 90
+  },
+  "dt": 1485789600,
+  "sys": {
+    "type": 1,
+    "id": 5091,
+    "message": 0.0103,
+    "country": "GB",
+    "sunrise": 1485762037,
+    "sunset": 1485794875
+  },
+  "id": 2643743,
+  "name": "London",
+  "cod": 200
+}
+
+```
+---
+class: code, smaller-text
+
+```sh
+mike@sleepycat:~$ curl -s "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22" | jq '.weather'
+[
+  {
+    "id": 300,
+    "main": "Drizzle",
+    "description": "light intensity drizzle",
+    "icon": "09d"
+  }
+]
+```
+---
+
+class: center, middle
+
+# Interested in "things to do?"
+
+related info == another request
+
+---
+
+class: center, middle
+
+.fourty[![](images/consumer_barometer.png)]
+
+---
+
+class: center, middle
+
+# Serving different audiences is hard
+
+---
+
+class: center, middle
+
+.seventy[![](images/government_as_a_platform_basic.png)]
+
+---
+class: center, middle
+
+.seventy[![](images/government_as_a_platform_labled.png)]
+
+---
+class: center, middle
+
+.seventy[![](images/government_as_a_platform_third_party_1.png)]
+
+---
+class: center, middle
+
+.seventy[![](images/government_as_a_platform_third_party_2.png)]
+
+---
+class: center, middle
+
+.seventy[![](images/government_as_a_platform_mobile_app.png)]
+
+---
+class: center, middle
+
+.seventy[![](images/government_as_a_platform_mobile_app_2.png)]
+
+---
+class: center, middle
+
+# Everyone has this problem
+
+---
+class: center, middle
+
+.sixty[![](images/announcing_graphql.png)]
+
+---
+class: center, middle
+
+.fifty[![schema](images/graphql_requests_per_day.png)]
+
+---
+
+class: center, middle
+
+.seventy[![](images/government_as_a_platform_graphql.png)]
+
+---
+
+class: center, middle
+
+# NRCAN
+
+---
+
+class: center, middle
+
+.fifty[![](images/taiex.png)]
+
+---
+class: center, middle
+
+.ninety[![](images/taiex_meeting.jpg)]
+
+---
+
+<iframe width="100%" height="100%" src="http://nrcanapi.cds-snc.ca/graphiql?query=query%20POCgetEvaluationByFileId(%24fileId%3A%20String!)%20%7B%0A%20%20dwellings(filters%3A%20%5B%7Bfield%3A%20evaluationFileId%2C%20comparator%3A%20eq%2C%20value%3A%20%24fileId%7D%5D)%20%7B%0A%20%20%20%20results%20%7B%0A%20%20%20%20%20%20city%0A%20%20%20%20%20%20evaluations%20%7B%0A%20%20%20%20%20%20%20%20evaluationType%0A%20%20%20%20%20%20%20%20fileId%0A%20%20%20%20%20%20%20%20houseType%0A%20%20%20%20%20%20%20%20ersRating%20%7B%0A%20%20%20%20%20%20%20%20%20%20measurement%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20eghRating%20%7B%0A%20%20%20%20%20%20%20%20%20%20measurement%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20greenhouseGasEmissions%20%7B%0A%20%20%20%20%20%20%20%20%20%20measurement%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20yearBuilt%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A&operationName=POCgetEvaluationByFileId&variables=%7B%0A%20%20%22fileId%22%3A%20%224X94D01219%22%0A%7D" frameborder="0" allowfullscreen></iframe>
+
+---
+<iframe width="100%" height="100%" src="http://nrcanpoc.azurewebsites.net/search-fileid" frameborder="0" allowfullscreen></iframe>
+---
+class: center, middle
+
+> Upon learning about the API, Metro Vancouver realized that it [the API] would completely solve their problem...there was even crying and laughter involved upon this realization. <cite>Partner at NRCan</cite>
+
+---
+
+
+
+class: center
+
+## See you on Github!
+
+.contactImages[![Contact Images](images/contact.png)]
+
+.github[@sleepycat]
+.twitter[@dexterchief]
+.email[mike.williamson@tbs-sct.gc.ca]
+
+    </textarea>
+    <script src="js/remark.min.js"></script>
+    <script>
+      var slideshow = remark.create({ratio: "16:9"});
+    </script>
+  </body>
+</html>

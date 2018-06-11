@@ -1,0 +1,22 @@
+query CLIgetEvaluationByFileId($fileId: String!) {
+  dwellings(filters: [{field: evaluationFileId, comparator: eq, value: $fileId}]) {
+    results {
+      city
+      evaluations {
+        evaluationType
+        fileId
+        houseType
+        ersRating {
+          measurement
+        }
+        eghRating {
+          measurement
+        }
+        greenhouseGasEmissions {
+          measurement
+        }
+      }
+      yearBuilt
+    }
+  }
+}
