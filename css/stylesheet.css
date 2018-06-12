@@ -19,6 +19,13 @@ ul {
   list-style-type: none;
 }
 
+ul li {
+  display: block;
+  font-size: 35px;
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
 ul ul li {
   list-style-type: none;
   border-left: none;
@@ -66,15 +73,6 @@ blockquote cite:before {
   margin-top: 0px;
 }
 
-ul li {
-  display: block;
-  font-size: 35px;
-  border-left: 15px solid #ffcd33;
-  padding-left: 1.25em;
-  margin-left: 1.75em;
-  padding-top: 0px;
-  margin-top: 0px;
-}
 
 .title-slide h1 {
   font-family: 'hk_groteskregular';
@@ -418,28 +416,48 @@ b {
   width: 10%;
 }
 
-.twentyfive img {
-  width: 25%;
+.fifteen img {
+  width: 15%;
 }
 
 .twenty img {
   width: 20%;
 }
 
+.twentyfive img {
+  width: 25%;
+}
+
 .thirty img {
   width: 30%;
+}
+
+.thirtyfive img {
+  width: 35%;
 }
 
 .fourty img {
   width: 40%;
 }
 
+.fourtyfive img {
+  width: 45%;
+}
+
 .fifty img {
   width: 50%;
 }
 
+.fiftyfive img {
+  width: 55%;
+}
+
 .sixty img {
   width: 60%;
+}
+
+.sixtyfive img {
+  width: 65%;
 }
 
 .seventy img {
@@ -452,6 +470,10 @@ b {
 
 .eighty img {
   width: 80%;
+}
+
+.eightyfive img {
+  width: 85%;
 }
 
 .ninety img {

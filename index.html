@@ -9,203 +9,251 @@
 
 class: middle, title-slide
 
-# The NRCAN API
-## GraphQL@CDS
+# GraphQL@CDS
+## The NRCAN API
+
+---
+class: center
+
+# APIs
+
+* Serving data, not web pages
+
+.fourty[![](images/apis.png)]
 
 ---
 class: center, middle
 
-.fourty[![](images/consumer_barometer.png)]
-
----
-class: middle, center
-
-# APIs being nice to mobile users means:
-* Avoid multiple requests
-* Avoid sending unnecessary data
+.fourty[![](images/mandatory_apis.png)]
 
 ---
 class: center, middle
 
-.fifty[![schema](images/mandatory_apis.png)]
+.fifty[![](images/data_sharing.svg)]
+
+---
+class: middle, center
+
+# How is GraphQL different?
+
+* Gives you what you ask for
 
 ---
 
-class: middle, center
+class: code, smaller-text
 
-# How APIs work now
-Spoiler: it's worse than you think
+## What year was Luke Skywalker born in?
 
+```sh
+mike@sleepycat:~$ curl -s https://swapi.co/api/people/1/ | jq '.'
+{
+  "name": "Luke Skywalker",
+  "height": "172",
+  "mass": "77",
+  "hair_color": "blond",
+  "skin_color": "fair",
+  "eye_color": "blue",
+  "birth_year": "19BBY",
+  "gender": "male",
+  "homeworld": "https://swapi.co/api/planets/1/",
+  "films": [
+    "https://swapi.co/api/films/2/",
+    "https://swapi.co/api/films/6/",
+    "https://swapi.co/api/films/3/",
+    "https://swapi.co/api/films/1/",
+    "https://swapi.co/api/films/7/"
+  ],
+  "species": [
+    "https://swapi.co/api/species/1/"
+  ],
+  "vehicles": [
+    "https://swapi.co/api/vehicles/14/",
+    "https://swapi.co/api/vehicles/30/"
+  ],
+  "starships": [
+    "https://swapi.co/api/starships/12/",
+    "https://swapi.co/api/starships/22/"
+  ],
+  "created": "2014-12-09T13:50:51.644000Z",
+  "edited": "2014-12-20T21:17:56.891000Z",
+  "url": "https://swapi.co/api/people/1/"
+}
+```
 ---
 class: code, smaller-text
 
+## What year was Luke Skywalker born in?
+
 ```sh
-curl -s "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22"
-{"coord":{"lon":-0.13,"lat":51.51},"weather":[{"id":300,"main":"Drizzle","description":"light intensity drizzle","icon":"09d"}],"base":"stations","main":{"temp":280.32,"pressure":1012,"humidity":81,"temp_min":279.15,"temp_max":281.15},"visibility":10000,"wind":{"speed":4.1,"deg":80},"clouds":{"all":90},"dt":1485789600,"sys":{"type":1,"id":5091,"message":0.0103,"country":"GB","sunrise":1485762037,"sunset":1485794875},"id":2643743,"name":"London","cod":200}
+mike@sleepycat:~$ curl -s https://swapi.co/api/people/1/ | jq '.birth_year'
+"19BBY"
 ```
 ---
 
+<iframe width="100%" height="100%" src="https://graphqlbin.com/v2/oQzPCr" frameborder="0" allowfullscreen></iframe>
+
+---
+class: middle, center
+
+# How is GraphQL different?
+
+* Gives you what you ask for
+* Gets related data in a single request
+
+---
 class: code, smaller-text
 
+## Luke's birth year + names of films
+
 ```sh
-curl -s "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22" | jq '.'
+mike@sleepycat:~$ curl -s https://swapi.co/api/people/1/ | jq '.'
 {
-  "coord": {
-    "lon": -0.13,
-    "lat": 51.51
-  },
-  "weather": [
-    {
-      "id": 300,
-      "main": "Drizzle",
-      "description": "light intensity drizzle",
-      "icon": "09d"
-    }
+  "name": "Luke Skywalker",
+  "height": "172",
+  "mass": "77",
+  "hair_color": "blond",
+  "skin_color": "fair",
+  "eye_color": "blue",
+  "birth_year": "19BBY",
+  "gender": "male",
+  "homeworld": "https://swapi.co/api/planets/1/",
+  "films": [
+    "https://swapi.co/api/films/2/",
+    "https://swapi.co/api/films/6/",
+    "https://swapi.co/api/films/3/",
+    "https://swapi.co/api/films/1/",
+    "https://swapi.co/api/films/7/"
   ],
-  "base": "stations",
-  "main": {
-    "temp": 280.32,
-    "pressure": 1012,
-    "humidity": 81,
-    "temp_min": 279.15,
-    "temp_max": 281.15
-  },
-  "visibility": 10000,
-  "wind": {
-    "speed": 4.1,
-    "deg": 80
-  },
-  "clouds": {
-    "all": 90
-  },
-  "dt": 1485789600,
-  "sys": {
-    "type": 1,
-    "id": 5091,
-    "message": 0.0103,
-    "country": "GB",
-    "sunrise": 1485762037,
-    "sunset": 1485794875
-  },
-  "id": 2643743,
-  "name": "London",
-  "cod": 200
+  "species": [
+    "https://swapi.co/api/species/1/"
+  ],
+  "vehicles": [
+    "https://swapi.co/api/vehicles/14/",
+    "https://swapi.co/api/vehicles/30/"
+  ],
+  "starships": [
+    "https://swapi.co/api/starships/12/",
+    "https://swapi.co/api/starships/22/"
+  ],
+  "created": "2014-12-09T13:50:51.644000Z",
+  "edited": "2014-12-20T21:17:56.891000Z",
+  "url": "https://swapi.co/api/people/1/"
+}
+```
+---
+class: code, smaller-text
+
+## Luke's birth year + names of films
+
+```sh
+mike@sleepycat:~$ curl -s https://swapi.co/api/films/2/ | jq '.'
+{
+  "title": "The Empire Strikes Back",
+  "episode_id": 5,
+  "opening_crawl": "It is a dark time for the\r\nRebellion. Although the Death\r\nStar has been destroyed,\r\nImperial troops have driven the\r\nRebel forces from their hidden\r\nbase and pursued them across\r\nthe galaxy.\r\n\r\nEvading the dreaded Imperial\r\nStarfleet, a group of freedom\r\nfighters led by Luke Skywalker\r\nhas established a new secret\r\nbase on the remote ice world\r\nof Hoth.\r\n\r\nThe evil lord Darth Vader,\r\nobsessed with finding young\r\nSkywalker, has dispatched\r\nthousands of remote probes into\r\nthe far reaches of space....",
+  "director": "Irvin Kershner",
+  "producer": "Gary Kurtz, Rick McCallum",
+  "release_date": "1980-05-17",
+  "characters": [
+    "https://swapi.co/api/people/1/",
+    "https://swapi.co/api/people/2/",
+    "https://swapi.co/api/people/3/",
+    "https://swapi.co/api/people/4/",
+    "https://swapi.co/api/people/5/",
+    "https://swapi.co/api/people/10/",
+    "https://swapi.co/api/people/13/",
+    "https://swapi.co/api/people/14/",
+    "https://swapi.co/api/people/18/",
+    "https://swapi.co/api/people/20/",
+    "https://swapi.co/api/people/21/",
+    "https://swapi.co/api/people/22/",
+    "https://swapi.co/api/people/23/",
+    "https://swapi.co/api/people/24/",
+    "https://swapi.co/api/people/25/",
+    "https://swapi.co/api/people/26/"
+  ],
+  "planets": [
+    "https://swapi.co/api/planets/4/",
+    "https://swapi.co/api/planets/5/",
+    "https://swapi.co/api/planets/6/",
+    "https://swapi.co/api/planets/27/"
+  ],
+  "starships": [
+    "https://swapi.co/api/starships/15/",
+    "https://swapi.co/api/starships/10/",
+    "https://swapi.co/api/starships/11/",
+    "https://swapi.co/api/starships/12/",
+    "https://swapi.co/api/starships/21/",
+    "https://swapi.co/api/starships/22/",
+    "https://swapi.co/api/starships/23/",
+    "https://swapi.co/api/starships/3/",
+    "https://swapi.co/api/starships/17/"
+  ],
+  "vehicles": [
+    "https://swapi.co/api/vehicles/8/",
+    "https://swapi.co/api/vehicles/14/",
+    "https://swapi.co/api/vehicles/16/",
+    "https://swapi.co/api/vehicles/18/",
+    "https://swapi.co/api/vehicles/19/",
+    "https://swapi.co/api/vehicles/20/"
+  ],
+  "species": [
+    "https://swapi.co/api/species/6/",
+    "https://swapi.co/api/species/7/",
+    "https://swapi.co/api/species/3/",
+    "https://swapi.co/api/species/2/",
+    "https://swapi.co/api/species/1/"
+  ],
+  "created": "2014-12-12T11:26:24.656000Z",
+  "edited": "2017-04-19T10:57:29.544256Z",
+  "url": "https://swapi.co/api/films/2/"
 }
 
 ```
 ---
-class: code, smaller-text
 
-```sh
-mike@sleepycat:~$ curl -s "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22" | jq '.weather'
-[
-  {
-    "id": 300,
-    "main": "Drizzle",
-    "description": "light intensity drizzle",
-    "icon": "09d"
-  }
-]
-```
----
-
-class: center, middle
-
-# Interested in "things to do?"
-
-related info == another request
+<iframe width="100%" height="100%" src="https://graphqlbin.com/v2/zKOzTw" frameborder="0" allowfullscreen></iframe>
 
 ---
 
+class: middle, center
 
-class: center, middle
+# How is GraphQL different?
 
-# Serving different audiences is hard
-
----
-
-class: center, middle
-
-.seventy[![](images/government_as_a_platform_basic.png)]
+* Gives you what you ask for
+* Gets related data in a single request
+* Visbility
 
 ---
 class: center, middle
 
-.seventy[![](images/government_as_a_platform_labled.png)]
+.seventy[![](images/monitoring.png)]
 
 ---
-class: center, middle
+class: middle, center
 
-.seventy[![](images/government_as_a_platform_third_party_1.png)]
-
----
-class: center, middle
-
-.seventy[![](images/government_as_a_platform_third_party_2.png)]
-
----
-class: center, middle
-
-.seventy[![](images/government_as_a_platform_mobile_app.png)]
-
----
-class: center, middle
-
-.seventy[![](images/government_as_a_platform_mobile_app_2.png)]
-
----
-class: center, middle
-
-# Everyone has this problem
-
----
-class: center, middle
-
-.sixty[![](images/announcing_graphql.png)]
-
----
-class: center, middle
-
-.fifty[![schema](images/graphql_requests_per_day.png)]
+# What this meant for NRCAN
 
 ---
 
-class: center, middle
-
-.seventy[![](images/government_as_a_platform_graphql.png)]
+<iframe width="100%" height="100%" src="http://nrcanapi.cds-snc.ca/graphiql?query=%7B%0A%20%20dwellings(filters%3A%20%5B%7Bfield%3A%20dwellingForwardSortationArea%2C%20comparator%3A%20eq%2C%20value%3A%20%22C1A%22%7D%5D)%20%7B%0A%20%20%20%20results%20%7B%0A%20%20%20%20%20%20forwardSortationArea%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A" frameborder="0" allowfullscreen></iframe>
 
 ---
 
-class: center, middle
 
-# NRCAN
-
----
-
-class: center, middle
-
-.fifty[![](images/taiex.png)]
-
----
-class: center, middle
-
-.ninety[![](images/taiex_meeting.jpg)]
-
----
-
-<iframe width="100%" height="100%" src="http://nrcanapi.cds-snc.ca/graphiql?query=query%20POCgetEvaluationByFileId(%24fileId%3A%20String!)%20%7B%0A%20%20dwellings(filters%3A%20%5B%7Bfield%3A%20evaluationFileId%2C%20comparator%3A%20eq%2C%20value%3A%20%24fileId%7D%5D)%20%7B%0A%20%20%20%20results%20%7B%0A%20%20%20%20%20%20city%0A%20%20%20%20%20%20evaluations%20%7B%0A%20%20%20%20%20%20%20%20evaluationType%0A%20%20%20%20%20%20%20%20fileId%0A%20%20%20%20%20%20%20%20houseType%0A%20%20%20%20%20%20%20%20ersRating%20%7B%0A%20%20%20%20%20%20%20%20%20%20measurement%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20eghRating%20%7B%0A%20%20%20%20%20%20%20%20%20%20measurement%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20greenhouseGasEmissions%20%7B%0A%20%20%20%20%20%20%20%20%20%20measurement%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20yearBuilt%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A&operationName=POCgetEvaluationByFileId&variables=%7B%0A%20%20%22fileId%22%3A%20%224X94D01219%22%0A%7D" frameborder="0" allowfullscreen></iframe>
-
----
-<iframe width="100%" height="100%" src="http://nrcanpoc.azurewebsites.net/search-fileid" frameborder="0" allowfullscreen></iframe>
----
 class: center, middle
 
 > Upon learning about the API, Metro Vancouver realized that it [the API] would completely solve their problem...there was even crying and laughter involved upon this realization. <cite>Partner at NRCan</cite>
 
 ---
+class: middle, center
 
+# .fifty[![](images/graphql_api.png)]
 
+* Solves problems we have right now
+* The problems it solves are about to become far more common
 
+---
 class: center
 
 ## See you on Github!
