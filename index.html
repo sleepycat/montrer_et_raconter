@@ -10,7 +10,7 @@
 class: middle, title-slide
 
 # GraphQL@CDS
-## The NRCAN API
+## The EnerGuide API
 
 ---
 class: center
@@ -218,6 +218,22 @@ mike@sleepycat:~$ curl -s https://swapi.co/api/films/2/ | jq '.'
 
 class: middle, center
 
+# What this meant for NRCAN
+
+---
+
+<iframe width="100%" height="100%" src="http://nrcanapi.cds-snc.ca/graphiql?query=%7B%0A%20%20dwellings(filters%3A%20%5B%0A%20%20%20%20%7Bfield%3A%20dwellingForwardSortationArea%2C%20comparator%3A%20eq%2C%20value%3A%20%22C1A%22%7D%0A%20%20%5D)%20%7B%0A%20%20%20%20results%20%7B%0A%20%20%20%20%20%20forwardSortationArea%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D" frameborder="0" allowfullscreen></iframe>
+
+---
+
+
+class: center, middle
+
+> Upon learning about the API, Metro Vancouver realized that it [the API] would completely solve their problem...there was even crying and laughter involved upon this realization. <cite>Partner at NRCan</cite>
+
+---
+class: middle, center
+
 # How is GraphQL different?
 
 * Gives you what you ask for
@@ -228,22 +244,6 @@ class: middle, center
 class: center, middle
 
 .seventy[![](images/monitoring.png)]
-
----
-class: middle, center
-
-# What this meant for NRCAN
-
----
-
-<iframe width="100%" height="100%" src="http://nrcanapi.cds-snc.ca/graphiql?query=%7B%0A%20%20dwellings(filters%3A%20%5B%7Bfield%3A%20dwellingForwardSortationArea%2C%20comparator%3A%20eq%2C%20value%3A%20%22C1A%22%7D%5D)%20%7B%0A%20%20%20%20results%20%7B%0A%20%20%20%20%20%20forwardSortationArea%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A" frameborder="0" allowfullscreen></iframe>
-
----
-
-
-class: center, middle
-
-> Upon learning about the API, Metro Vancouver realized that it [the API] would completely solve their problem...there was even crying and laughter involved upon this realization. <cite>Partner at NRCan</cite>
 
 ---
 class: middle, center
@@ -267,7 +267,7 @@ class: center
     </textarea>
     <script src="js/remark.min.js"></script>
     <script>
-      var slideshow = remark.create({ratio: "16:9"});
+      let slideshow = remark.create({ratio: "16:9"})
     </script>
   </body>
 </html>
