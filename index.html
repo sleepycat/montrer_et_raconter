@@ -13,99 +13,68 @@ class: middle, title-slide
 ## Unlocking NRCAN's data
 
 ---
-class: center
+class: middle, center
 
-# APIs
+# EnerGuide data
 
-* Serving data, not web pages
-
-.fourty[![](images/apis.png)]
+* Collecting data since 1997
+* 3 formats (binary, database rows, XML)
+* ~360 variables
+* 1.1 million records now accessible via API (so far)
 
 ---
 class: middle, center
 
-# Who's using EnerGuide data
+# EnerGuide data is already being used
 
 * Many levels of government
+* Developers within NRCan
 * Industry
 * Academia
-* Developers within NRCAN
 
 *Everyone wants something different*
 
 ---
 class: middle, center
 
-# How people Get EnerGuide data now
+# Those who want the data have to ask
 
 .twenty[![](images/goc_data_sharing.svg)]
 
 ---
-class: center, middle
+class: middle, center
 
-.fourty[![](images/mandatory_apis.png)]
+# Backing up a step: APIs
+
+.fifty[![APIs are servers serving data](images/apis.png)]
 
 ---
-class: code, smaller-text
+class: middle, center
 
-## Normally the server decides everything
+# NRCan *is* the API
 
-```sh
-mike@sleepycat:~$ curl -s https://swapi.co/api/people/1/ | jq '.'
-{
-  "name": "Luke Skywalker",
-  "height": "172",
-  "mass": "77",
-  "hair_color": "blond",
-  "skin_color": "fair",
-  "eye_color": "blue",
-  "birth_year": "19BBY",
-  "gender": "male",
-  "homeworld": "https://swapi.co/api/planets/1/",
-  "films": [
-    "https://swapi.co/api/films/2/",
-    "https://swapi.co/api/films/6/",
-    "https://swapi.co/api/films/3/",
-    "https://swapi.co/api/films/1/",
-    "https://swapi.co/api/films/7/"
-  ],
-  "species": [
-    "https://swapi.co/api/species/1/"
-  ],
-  "vehicles": [
-    "https://swapi.co/api/vehicles/14/",
-    "https://swapi.co/api/vehicles/30/"
-  ],
-  "starships": [
-    "https://swapi.co/api/starships/12/",
-    "https://swapi.co/api/starships/22/"
-  ],
-  "created": "2014-12-09T13:50:51.644000Z",
-  "edited": "2014-12-20T21:17:56.891000Z",
-  "url": "https://swapi.co/api/people/1/"
-}
-```
+.twenty[![](images/goc_data_sharing.svg)]
 
 ---
 class: middle, center
 
 # User-centric APIs?
 
-> Product‐centric: GraphQL is unapologetically driven by the requirements of views and the front‐end engineers that write them. GraphQL starts with their way of thinking and requirements and builds the language and runtime necessary to enable that.
+> GraphQL is unapologetically driven by the requirements of views and the front‐end engineers that write them. GraphQL starts with their way of thinking and requirements and builds the language and runtime necessary to enable that.
 
 ---
 
 
 class: middle, center
 
-# NRCAN partner example
+# NRCan partner example
 
 > [Metro Vancouver] has been wrestling with ways to figure out how to analyze and map
 > out [energy] data at the 3 digit postal code.
 
 ---
 
-<iframe width="100%" height="100%" src="http://nrcanapi.cds-snc.ca/graphiql?query=%7B%0A%20%20dwellings(filters%3A%20%5B%0A%20%20%20%20%7Bfield%3A%20dwellingForwardSortationArea%2C%20comparator%3A%20eq%2C%20value%3A%20%22C1A%22%7D%0A%20%20%5D)%20%7B%0A%20%20%20%20results%20%7B%0A%20%20%20%20%20%20forwardSortationArea%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="100%" src="http://nrcanapi.cds-snc.ca/graphiql?query=%7B%0A%20%20dwellings(filters%3A%20%5B%0A%20%20%20%20%7Bfield%3A%20dwellingForwardSortationArea%2C%20comparator%3A%20eq%2C%20value%3A%20%22V5T%22%7D%0A%20%20%5D)%20%7B%0A%20%20%20%20results%20%7B%0A%20%20%20%20%20%20forwardSortationArea%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D" frameborder="0" allowfullscreen></iframe>
 
 ---
 class: center, middle
@@ -123,21 +92,21 @@ class: center, middle
 .seventy[![](images/monitoring.png)]
 
 ---
+
 class: middle, center
 
-# .fifty[![](images/graphql_api.png)]
+# Going forward...
+
+---
+
+class: middle, center
+
+.fourty[![](images/mandatory_apis.png)]
+
+---
+class: middle, center
 
 > Given a number of alternatives, choose the one that makes future change easier.<cite>Dave Thomas</cite>
----
-class: center
-
-## See you on Github!
-
-.contactImages[![Contact Images](images/contact.png)]
-
-.github[@sleepycat]
-.twitter[@dexterchief]
-.email[mike.williamson@tbs-sct.gc.ca]
 
     </textarea>
     <script src="js/remark.min.js"></script>
