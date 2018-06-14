@@ -74,19 +74,24 @@ blockquote cite:before {
 }
 
 
-.title-slide h1 {
+.title-slide h2 {
+	font-size: 23px;
   font-family: 'hk_groteskregular';
-  transform: translate(7%, 49%);
   font-weight: bold;
   text-align: left;
   border-left: none;
 }
 
-.title-slide h2 {
+.title-slide h3 {
   font-size: 35px;
   transform: translate(8%, -14%);
   font-family: 'hk_groteskregular';
   border-left: none;
+}
+
+.title-slide h1 {
+	font-size: 30px;
+	border-left: none;
 }
 
 .title-slide h1:before {
